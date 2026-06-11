@@ -4,6 +4,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
 const dns = require("dns");
+const resumeRoutes = require("./Routes/ResumeRoutes");
 
 const { ApolloServer } = require("@apollo/server");
 const { expressMiddleware } = require("@as-integrations/express5");
@@ -12,6 +13,8 @@ const app = express();
 
 app.use(cors());
 app.use(express.json());
+
+app.use("/api/resume", resumeRoutes);
 
 dns.setServers(['8.8.8.8', '8.8.4.4']);
 mongoose.connect(process.env.MONGO_URI)
