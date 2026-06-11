@@ -156,32 +156,6 @@ http://localhost:5000
 
 ---
 
-
-# API Workflow
-
-```text
-Upload Resume
-      ↓
-Multer
-      ↓
-Store PDF
-      ↓
-pdf-parse
-      ↓
-Extract Text
-      ↓
-Gemini API
-      ↓
-ATS Score
-Skills
-Missing Skills
-Suggestions
-      ↓
-MongoDB
-      ↓
-Frontend
-```
-
 ---
 
 # API Endpoints
