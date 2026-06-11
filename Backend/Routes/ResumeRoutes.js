@@ -1,8 +1,8 @@
 const express = require("express");
 const multer = require("multer");
 const extractText = require("../Services/ParserServices");
-const analyzeResume =
-    require("../Services/AIServices");
+const analyzeResume = require("../Services/AIServices");
+const Resume = require("../Models/Resume");
 
 const router = express.Router();
 
@@ -27,6 +27,20 @@ router.post(
 
             const analysis =
                 await analyzeResume(resumeText);
+            const cleaned = analysis
+                .replace(/```json/g, "")
+                .replace(/```/g, "")
+                .trim();
+
+            const result = JSON.parse(cleaned);
+            console.log(result);
+            await Resume.create({
+                fileName: req.file.originalname,
+                atsScore: result.atsScore,
+                skills: result.skills,
+                missingSkills: result.missingSkills,
+                suggestions: result.suggestions,
+            });
 
             res.json({
                 analysis,
